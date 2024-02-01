@@ -9,7 +9,8 @@
 
 1. Clone the repo
 2. Install packages `pnpm install`
-3. Run the command
+3. Create .env file
+4. Run the command
 
 ```
 pnpm dev create-token -n EBK Token -s EBK -u https://ebk-file-storage-bucket.s3.us-east-2.amazonaws.com/metadata.json -d 9
