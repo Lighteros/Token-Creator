@@ -72,7 +72,6 @@ program
   .option('--to [ADDRESS]', 'The address to mint to')
   .action(async (options, command) => {
     const { mint, amount, decimals, to } = options
-    console.log(options)
     const spinner = ora('Minting token...').start()
     const {
       response: { signature },
@@ -90,6 +89,26 @@ program
         to && metaplex.identity().publicKey.toBase58()
       }, signature: ${signature}`
     )
+  })
+
+program
+  .command('upload-metadata')
+  .description('Upload metadata to S3')
+  .option('-n, --name <string>', 'The name of the token')
+  .option('-s, --symbol <string>', 'The symbol of the token')
+  .option('-d, --description <string>', 'The description of the token')
+  .option('-i, --image <string>', 'The uri of token avatar image')
+  .action(async (options, command) => {
+    const { name, symbol, description, image } = options
+    const spinner = ora('Uploading metadata...').start()
+    const { uri } = await metaplex.nfts().uploadMetadata({
+      name,
+      symbol,
+      description,
+      image,
+    })
+    spinner.succeed(`Metadata uploaded: ${uri}`)
+    logger.info(`Uploaded metadata: ${uri}`)
   })
 
 program.parse(process.argv)
