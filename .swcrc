@@ -1,0 +1,32 @@
+{
+  "exclude": "node_modules/",
+  "module": {
+    "type": "nodenext",
+
+    // These are defaults.
+    "strict": false,
+    "strictMode": true,
+    "lazy": false,
+    "noInterop": false
+  },
+  "jsc": {
+    "parser": {
+      "syntax": "typescript",
+      "topLevelAwait": true
+    },
+    "target": "es5",
+    "experimental": {
+      "plugins": [
+        [
+          "@swc/plugin-transform-imports",
+          {
+            "^(.*?)(\\.ts)$": {
+              "skipDefaultConversion": true,
+              "transform": "{{matches.[1]}}.js"
+            }
+          }
+        ]
+      ]
+    }
+  }
+}
